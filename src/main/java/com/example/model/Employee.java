@@ -15,6 +15,9 @@ public class Employee {
     private Integer age;
 
     private  String dni;
+    //asociacion entre empleados y clase
+    //@ManyToOne
+
 
 
     public  Employee(String firstName, String lastName, Integer age, String dni){
