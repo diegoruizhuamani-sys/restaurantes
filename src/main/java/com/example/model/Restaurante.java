@@ -26,7 +26,7 @@ public class Restaurante {
     private Integer numberEmployees;
 
     //Fecha de fundación
-    @CreationTimestamp
+    @CreationTimestamp    //    para crear fechas por defecto
     private LocalDate startDate = LocalDate.now(); // =LocalDate.now(); // valor por defecto a la fecha actual
 
     //tipo de comida
@@ -121,10 +121,12 @@ public class Restaurante {
     }
 
     public LocalDate getStartDate() {
+
         return startDate;
     }
 
     public void setStartDate(LocalDate startDate) {
+
         this.startDate = startDate;
     }
 }

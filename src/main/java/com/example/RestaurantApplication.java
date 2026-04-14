@@ -8,6 +8,7 @@ import com.example.repository.RestauranteRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
 import java.util.*;
 
 //Una clase con @Entity equivale a una tabla en base de datos
@@ -157,6 +158,22 @@ public class RestaurantApplication {
         System.out.println(restJapan);
         restauranteRepository.save((restJapan));
         //Probar a intentar otro tipo de comida y ver que no deja
+
+
+        //Probar fecha de startDate del restaurante
+        Restaurante smashBurguer = new Restaurante();
+        smashBurguer.setName("Smash Burguer Madrid");
+        smashBurguer.setStartDate(LocalDate.now()); //fecha actual
+        restauranteRepository.save(smashBurguer);
+        System.out.println(smashBurguer);
+
+        //fecha futura
+        Restaurante sidreria = new Restaurante();
+        sidreria.setStartDate(LocalDate.of(2026, 6, 20));
+
+        sidreria.setName("Sidreria Asturiana");
+        restauranteRepository.save(sidreria);
+        System.out.println(sidreria);
 
 
         //save()
