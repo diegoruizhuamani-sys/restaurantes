@@ -91,7 +91,9 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", dni='" + dni + '\'' +
-                ", restaurante=" + restaurante +
+
+                // Si el restaurante es null entonces hace null.getId() y da error
+                ", restaurante=" + (restaurante != null ? restaurante.getId()  : null) +
                 '}';
     }
 

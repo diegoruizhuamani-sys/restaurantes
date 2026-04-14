@@ -183,17 +183,45 @@ public class RestaurantApplication {
         Restaurante RestauranteEjemplo = new Restaurante("La Carcel", 25.0, 2);
         RestauranteEjemplo.setName("La Carcel");
         restauranteRepository.save(RestauranteEjemplo);
+
         // Paso 2. crear empleados, setRestaurant y guardar
         Employee empEjemplo1 = new Employee("Maria", "Gomez", 30, "12345678A");
         empEjemplo1.setRestaurante(RestauranteEjemplo);
         employeeRepository.save(empEjemplo1);
+        System.out.println(empEjemplo1);
 
         Employee empEjemplo2 = new Employee("Diego", "Arturo", 23, "02292863H");
         empEjemplo2.setRestaurante(RestauranteEjemplo);
         employeeRepository.save(empEjemplo2);
+        System.out.println(empEjemplo2);
 
 
 
+        //Bucle for para iterar sobre todos los empleados imprimiendo el nombre del empleado y el nombre del restaurante
+        // si lo tiene
+//employeeRepository.findAll() devuelve lista de empleados
+        //for (Employee trabajadores : trabajadores) {
+        //System.out.println(trabajador,getFirstName() + "trabaja en" + trabajador.getRestaurante().getName);
+
+
+
+        List<Employee> empleados = employeeRepository.findAll();
+        for (Employee empleado : empleados) { //
+            System.out.println(empleado.getFirstName() + " " + empleado.getLastName() );
+            if (empleado.getRestaurante() != null) {//Si el trabajador.getRestaurante es distinto a null : SOUT
+                System.out.println("Trabaja en el restaurante: " + empleado.getRestaurante().getName());
+            } else {
+                System.out.println("No tiene restaurante asignado");
+            }
+
+        }
+
+         //probar a filtrar
+        //List<Employee> empleados20 = employeeRepository.findByAge(20);
+        List<Employee> empleadosBurguer = employeeRepository.findByRestauranteName("La Carcel");
+        System.out.println("Empleados que trabajan en La carcel : " + empleadosBurguer);
+        // filtrar por apellido
+        //filtrar por edad
 
 
 
