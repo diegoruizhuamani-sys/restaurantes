@@ -106,7 +106,7 @@ public class Restaurante {
 
 
     }
-//Metodo toString para ver los datos de un restaurante al imprimirlo
+
     @Override
     public String toString() {
         return "Restaurante{" +
@@ -115,7 +115,8 @@ public class Restaurante {
                 ", averagePrice=" + averagePrice +
                 ", active=" + active +
                 ", numberEmployees=" + numberEmployees +
-                ", startDate"+
+                ", startDate=" + startDate +
+                ", foodType=" + foodType +
                 '}';
     }
 

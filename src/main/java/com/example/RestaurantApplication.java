@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.model.Employee;
+import com.example.model.FoodType;
 import com.example.model.Restaurante;
 import com.example.repository.EmployeeRepository;
 import com.example.repository.RestauranteRepository;
@@ -144,6 +145,18 @@ public class RestaurantApplication {
         //findById
         //exitsById
         //count()
+
+        //Crear un restaurante español
+        Restaurante restSpain = new Restaurante();
+        restSpain.setFoodType(FoodType.SPANISH);
+        System.out.println(restSpain);
+        restauranteRepository.save(restSpain);
+        //Crear un restaurante  de comida japonesa
+        Restaurante restJapan = new Restaurante();
+        restJapan.setFoodType(FoodType.JAPANESE);
+        System.out.println(restJapan);
+        restauranteRepository.save((restJapan));
+        //Probar a intentar otro tipo de comida y ver que no deja
 
 
         //save()
