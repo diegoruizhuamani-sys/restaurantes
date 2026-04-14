@@ -174,6 +174,27 @@ public class RestaurantApplication {
         sidreria.setName("Sidreria Asturiana");
         restauranteRepository.save(sidreria);
         System.out.println(sidreria);
+       // LocalDate solo da año mes y dia
+        //LocalTime solo da hora minuto segundo
+        // LocalDateTime da año mes dia hora minuto segundo
+
+        //MANY TO ONE - ASOCIAR UN RESTAURANTE A DOS EMPLEADOS
+        //Paso 1. crear restaurante y guardarlo
+        Restaurante RestauranteEjemplo = new Restaurante("La Carcel", 25.0, 2);
+        RestauranteEjemplo.setName("La Carcel");
+        restauranteRepository.save(RestauranteEjemplo);
+        // Paso 2. crear empleados, setRestaurant y guardar
+        Employee empEjemplo1 = new Employee("Maria", "Gomez", 30, "12345678A");
+        empEjemplo1.setRestaurante(RestauranteEjemplo);
+        employeeRepository.save(empEjemplo1);
+
+        Employee empEjemplo2 = new Employee("Diego", "Arturo", 23, "02292863H");
+        empEjemplo2.setRestaurante(RestauranteEjemplo);
+        employeeRepository.save(empEjemplo2);
+
+
+
+
 
 
         //save()

@@ -45,6 +45,19 @@ public class Restaurante {
 //Metodo constructor para crear Restaurantes con valores
 
     //Parametros o Atributos
+
+    @ManyToOne
+    @JoinColumn
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     public Restaurante(String name, Double averagePrice, Integer numberEmployees) {
         this.name = name;
         this.averagePrice = averagePrice;        //

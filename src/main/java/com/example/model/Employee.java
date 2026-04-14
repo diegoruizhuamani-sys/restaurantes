@@ -15,10 +15,22 @@ public class Employee {
     private Integer age;
 
     private  String dni;
+
     //asociacion entre empleados y clase
     //@ManyToOne
 
 
+    @ManyToOne
+
+    private Restaurante restaurante;
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
 
     public  Employee(String firstName, String lastName, Integer age, String dni){
         this.firstName = firstName;
@@ -79,6 +91,7 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", dni='" + dni + '\'' +
+                ", restaurante=" + restaurante +
                 '}';
     }
 
