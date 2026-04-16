@@ -1,10 +1,11 @@
 package com.example;
 
-import com.example.model.Employee;
-import com.example.model.FoodType;
-import com.example.model.Restaurante;
+import com.example.model.*;
+import com.example.repository.DishRepository;
 import com.example.repository.EmployeeRepository;
+import com.example.repository.OrderRepository;
 import com.example.repository.RestauranteRepository;
+import org.hibernate.boot.jaxb.SourceType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -25,6 +26,8 @@ public class RestaurantApplication {
         //obtener los repositorios para poder hacer operaciones de base de datos con ellos
         RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
         EmployeeRepository employeeRepository = context.getBean(EmployeeRepository.class);
+        DishRepository dishRepository = context.getBean(DishRepository.class);
+        OrderRepository orderRepository = context.getBean(OrderRepository.class);
 
 
         //crear un objeto restaurante: new
@@ -221,7 +224,65 @@ public class RestaurantApplication {
         List<Employee> empleadosBurguer = employeeRepository.findByRestauranteName("La Carcel");
         System.out.println("Empleados que trabajan en La carcel : " + empleadosBurguer);
         // filtrar por apellido
+        List<Employee> empleadosApellido = employeeRepository.findByLastName("Arturo");
+        System.out.println("Empleado que trabaja en la carcel con apellido Artruo: " + empleadosApellido);
         //filtrar por edad
+        List<Employee> empleadosEdad = employeeRepository.findByAge(23);
+        System.out.println("Empleado que trabaja en la carcel con 23 años " + empleadosEdad);
+
+
+// CREAR PLATOS Y GUARDARLOS
+        Restaurante restaurantSpain = new Restaurante();
+        restauranteRepository.save(restaurantSpain);
+        Dish plato1 = new Dish(null, "Ensalada", "de puñetazos", 5.0, DishType.STARTER, restaurantSpain);
+        Dish plato2 = new Dish(null, "Lentejas", "con chorizo", 8.0, DishType.MAIN, restaurantSpain);
+        Dish plato3 = new Dish(null, "Tarta de queso", null, 7.50, DishType.DESSERT, restaurantSpain);
+        Dish plato4 = new Dish(null, "Champán", null, 60.0, DishType.DESSERT, restaurantSpain);
+        dishRepository.saveAll(List.of(plato1, plato2, plato3, plato4));
+
+        // OPcion  1: crear consultas personalizadas en DishRepository
+        // que traiga los platos con precio menor que 10 euros findAllByPrice...
+        for (var plato: dishRepository.findByPriceLessThanEqual(7.99))
+            System.out.println("plato");
+        // que traiga los platos de un restaurante ordenados por precio ascendente findAllBy
+        // que traiga aquellos platos que no contengan alergenos
+
+
+        System.out.println("TRAER PLATOS DE UN RESTAURANTE ORDENADOS POR PRECIO ASCENDENTE:");
+        Long restaurantId = restaurantSpain.getId();
+        for (var plato: dishRepository.findByRestaurantIdOrderByPrice(restaurantId))
+            System.out.println(plato);
+
+
+
+        // Opción 2: crear un pedido
+        Order pedido1 = new Order();
+        pedido1.setNumPeople(2);
+        pedido1.setRestaurant(restaurantSpain);
+        pedido1.setTableNumber(5);
+        pedido1.setTip(2.33);
+        //pedido1.setTotalPrice(57.5);
+        //pedido1.setDate(LocalDateTime.now()
+        Order pedido2 = new Order();
+        pedido2.setNumPeople(4);
+        pedido2.setRestaurant(restaurantSpain);
+        pedido2.setTableNumber(2);
+        pedido2.setTip(1.33);
+
+        Order pedido3 = new Order(6.44, 6, 6, restaurantSpain);
+
+        orderRepository.save(pedido3);
+        orderRepository.save(pedido2);
+        orderRepository.save(pedido1);
+
+
+
+
+
+
+
+
+
 
 
 
