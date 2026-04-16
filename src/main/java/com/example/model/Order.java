@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.example.model.Enum.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

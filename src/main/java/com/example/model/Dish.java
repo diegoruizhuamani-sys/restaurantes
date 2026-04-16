@@ -1,4 +1,5 @@
 package com.example.model;
+import com.example.model.Enum.DishType;
 import jakarta.persistence.*;
 
 /*

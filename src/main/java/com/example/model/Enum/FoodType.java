@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.model.Enum;
 
 public enum FoodType {
     SPANISH, JAPANESE
