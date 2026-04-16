@@ -1,11 +1,10 @@
 package com.example.model;
 
+import com.example.model.Enum.FoodType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-
-import java.util.Date;
 
 @Entity
 @Table(name = "Restaurantes")

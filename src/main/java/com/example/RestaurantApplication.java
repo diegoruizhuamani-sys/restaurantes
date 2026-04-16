@@ -1,11 +1,9 @@
 package com.example;
 
 import com.example.model.*;
-import com.example.repository.DishRepository;
-import com.example.repository.EmployeeRepository;
-import com.example.repository.OrderRepository;
-import com.example.repository.RestauranteRepository;
-import org.hibernate.boot.jaxb.SourceType;
+import com.example.model.Enum.DishType;
+import com.example.model.Enum.FoodType;
+import com.example.repository.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -28,6 +26,8 @@ public class RestaurantApplication {
         EmployeeRepository employeeRepository = context.getBean(EmployeeRepository.class);
         DishRepository dishRepository = context.getBean(DishRepository.class);
         OrderRepository orderRepository = context.getBean(OrderRepository.class);
+        OrderLineRepository orderLineRepository = context.getBean(OrderLineRepository.class);
+//Nombre de interfaz en MAY.//Nombre de clase Minus.
 
 
         //crear un objeto restaurante: new
@@ -274,6 +274,9 @@ public class RestaurantApplication {
         orderRepository.save(pedido3);
         orderRepository.save(pedido2);
         orderRepository.save(pedido1);
+
+        //crear 6 líneas de pedido, una para cada Order.
+        //OrderLine...
 
 
 
