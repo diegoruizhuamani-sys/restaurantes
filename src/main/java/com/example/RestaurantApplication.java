@@ -21,7 +21,7 @@ public class RestaurantApplication {
     public static void main(String[] args) {
         var context = SpringApplication.run(RestaurantApplication.class, args);
 
-        //obtener los repositorios para poder hacer operaciones de base de datos con ellos
+        //Añadir/obtener los repositorios para poder hacer operaciones de base de datos con ellos
         RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
         EmployeeRepository employeeRepository = context.getBean(EmployeeRepository.class);
         DishRepository dishRepository = context.getBean(DishRepository.class);
@@ -271,12 +271,24 @@ public class RestaurantApplication {
 
         Order pedido3 = new Order(6.44, 6, 6, restaurantSpain);
 
+        Order pedido4 = new Order();
+        pedido4.setNumPeople(3);
+        pedido4.setRestaurant(restaurantSpain);
+        pedido4.setTableNumber(1);
+        pedido4.setTip(2.88);
+        orderRepository.save(pedido4);
         orderRepository.save(pedido3);
         orderRepository.save(pedido2);
         orderRepository.save(pedido1);
 
         //crear 6 líneas de pedido, una para cada Order.
         //OrderLine...
+        OrderLine unaEnsalada = new OrderLine(1, pedido1, plato1);//Creamos linea pedido que apunte al pedido y plato)
+        OrderLine dosLentejas = new OrderLine(2, pedido2, plato2);
+        OrderLine dosTartas = new OrderLine(6, pedido3, plato3);
+        OrderLine botellaChampan = new OrderLine(3, pedido4, plato4);
+         orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas, botellaChampan));
+
 
 
 
