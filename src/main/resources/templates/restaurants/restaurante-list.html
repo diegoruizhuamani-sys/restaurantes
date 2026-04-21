@@ -16,6 +16,9 @@
     <li th:each="restaurant : ${restaurants}">
         <span th:text="${restaurant.name}"></span>
         <span th:text="${restaurant.averagePrice}"></span>
+<!--        // <! &#45;&#45; Agregar enlace que apunte al restaurant id dinámicamente &ndash;&gt;-->
+<!--        // html:   <a href="/restaurants/2"></a>-->
+        <a th:href="@{/restaurants/{id}(id=${restaurant.id})}">Ver restaurante</a>
 
 
     </li>
