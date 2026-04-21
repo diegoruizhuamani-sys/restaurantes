@@ -3,6 +3,7 @@ package com.example;
 import com.example.model.*;
 import com.example.model.Enum.DishType;
 import com.example.model.Enum.FoodType;
+import com.example.model.Enum.OrderStatus;
 import com.example.repository.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -276,18 +277,41 @@ public class RestaurantApplication {
         pedido4.setRestaurant(restaurantSpain);
         pedido4.setTableNumber(1);
         pedido4.setTip(2.88);
-        orderRepository.save(pedido4);
-        orderRepository.save(pedido3);
-        orderRepository.save(pedido2);
         orderRepository.save(pedido1);
+        orderRepository.save(pedido2);
+        orderRepository.save(pedido3);
+        orderRepository.save(pedido4);
 
         //crear 6 líneas de pedido, una para cada Order.
         //OrderLine...
         OrderLine unaEnsalada = new OrderLine(1, pedido1, plato1);//Creamos linea pedido que apunte al pedido y plato)
-        OrderLine dosLentejas = new OrderLine(2, pedido2, plato2);
-        OrderLine dosTartas = new OrderLine(6, pedido3, plato3);
-        OrderLine botellaChampan = new OrderLine(3, pedido4, plato4);
-         orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas, botellaChampan));
+        OrderLine dosLentejas = new OrderLine(2, pedido1, plato2);
+        OrderLine dosTartas = new OrderLine(6, pedido1, plato3);
+        OrderLine botellaChampan = new OrderLine(3, pedido1, plato4);
+//         orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas, botellaChampan));
+
+         List<OrderLine> lineasPedido = orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas));
+
+         // calcular precio total en java:
+        double totalPrice = 0;
+        for(OrderLine lineaPedido : lineasPedido){
+            //Sacar precio de plato
+            double precioLinea = lineaPedido.getDish().getPrice() * lineaPedido.getQuantity();
+            totalPrice += precioLinea;
+        }
+        //Guardar totalPrice en base de datos
+        pedido1.setTotalPrice(totalPrice);
+            pedido1.setStatus(OrderStatus.FINISHED);
+        orderRepository.save(pedido1); // actualizar el totaPrice del pedido para saber cuanto dinerito ha generado el pedido)
+
+
+
+        //calcular precio total directamente en base de datos con una query
+        Double totalPrice2 = orderLineRepository.calculateTotalPrice(pedido1.getId());
+
+        System.out.println("Precio totalPrice:" + totalPrice);
+        System.out.println("Precio totalPrice2:" + totalPrice2);
+
 
 
 

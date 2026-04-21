@@ -13,7 +13,6 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Integer age;
-
     private  String dni;
 
     //asociacion entre empleados y clase
