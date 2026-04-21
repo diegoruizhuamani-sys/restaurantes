@@ -43,6 +43,7 @@ public class RestaurantApplication {
 
         //Crear objetos con datos
         Restaurante rest2 = new Restaurante("100 Montaditos", 33.10, 7);
+        rest2.setActive(false);
         restauranteRepository.save(rest2);
         //Crearlo vacio y actualizarlo con métodos set
         Restaurante rest3 = new Restaurante();
@@ -139,11 +140,7 @@ public class RestaurantApplication {
         // Restaurante restauranteFromDatabase = restauranteReposity.findById(idABuscar);
         Optional<Restaurante> restauranteFromDatabase = restauranteRepository.findById(idABuscar);
         // var restauranteFromDatabase = restauranteRepository.findById(idABuscar);
-        if (restauranteFromDatabase.isPresent()) {
-            Restaurante restaurante2 = restauranteFromDatabase.get();
-            System.out.println(restaurante2);
-
-        }
+        restauranteFromDatabase.ifPresent(System.out::println);
 
         //Resumen
         //findAll
