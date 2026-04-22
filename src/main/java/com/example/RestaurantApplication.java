@@ -129,8 +129,8 @@ public class RestaurantApplication {
         // restauranteRepository.deleteAll();
 
         //deleteById borrar una fila de la tabla por su id
-         restauranteRepository.deleteById(3L);
-         //restauranteRepository.deleteById(rest2.getId());
+        restauranteRepository.deleteById(3L);
+        //restauranteRepository.deleteById(rest2.getId());
 
         //delete, borra pasando el objeto
         restauranteRepository.delete(DiegoBar);
@@ -175,7 +175,7 @@ public class RestaurantApplication {
         sidreria.setName("Sidreria Asturiana");
         restauranteRepository.save(sidreria);
         System.out.println(sidreria);
-       // LocalDate solo da año mes y dia
+        // LocalDate solo da año mes y dia
         //LocalTime solo da hora minuto segundo
         // LocalDateTime da año mes dia hora minuto segundo
 
@@ -217,7 +217,7 @@ public class RestaurantApplication {
 
         }
 
-         //probar a filtrar
+        //probar a filtrar
         //List<Employee> empleados20 = employeeRepository.findByAge(20);
         List<Employee> empleadosBurguer = employeeRepository.findByRestauranteName("La Carcel");
         System.out.println("Empleados que trabajan en La carcel : " + empleadosBurguer);
@@ -231,6 +231,7 @@ public class RestaurantApplication {
 
 // CREAR PLATOS Y GUARDARLOS
         Restaurante restaurantSpain = new Restaurante();
+        restaurantSpain.setName("La Taberna");
         restauranteRepository.save(restaurantSpain);
         Dish plato1 = new Dish(null, "Ensalada", "de puñetazos", 5.0, DishType.STARTER, restaurantSpain);
         Dish plato2 = new Dish(null, "Lentejas", "con chorizo", 8.0, DishType.MAIN, restaurantSpain);
@@ -287,9 +288,9 @@ public class RestaurantApplication {
         OrderLine botellaChampan = new OrderLine(3, pedido1, plato4);
 //         orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas, botellaChampan));
 
-         List<OrderLine> lineasPedido = orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas));
+        List<OrderLine> lineasPedido = orderLineRepository.saveAll(List.of(unaEnsalada, dosLentejas, dosTartas));
 
-         // calcular precio total en java:
+        // calcular precio total en java:
         double totalPrice = 0;
         for(OrderLine lineaPedido : lineasPedido){
             //Sacar precio de plato
@@ -298,7 +299,7 @@ public class RestaurantApplication {
         }
         //Guardar totalPrice en base de datos
         pedido1.setTotalPrice(totalPrice);
-            pedido1.setStatus(OrderStatus.FINISHED);
+        pedido1.setStatus(OrderStatus.FINISHED);
         orderRepository.save(pedido1); // actualizar el totaPrice del pedido para saber cuanto dinerito ha generado el pedido)
 
 

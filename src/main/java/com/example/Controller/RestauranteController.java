@@ -1,6 +1,8 @@
 package com.example.Controller;
 
+import com.example.model.Dish;
 import com.example.model.Restaurante;
+import com.example.repository.DishRepository;
 import com.example.repository.RestauranteRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,12 @@ import java.util.Optional;
 public class RestauranteController {
     // inyectar el restaurant repository
     private final RestauranteRepository restauranteRepository;
+    private final DishRepository dishRepository;
 
-    public RestauranteController(RestauranteRepository restaurantRepository) {
+    public RestauranteController(RestauranteRepository restaurantRepository, DishRepository dishRepository) {
         this.restauranteRepository = restaurantRepository;
+        this.dishRepository = dishRepository;
+
     }
 
     /*
@@ -48,25 +53,31 @@ public class RestauranteController {
 
     //nuevo metodo para traer un solo restaurante por su id
     @GetMapping("restaurants/{id}")
-    public String restaurantDetail(@PathVariable Long id, Model model){
+    public String restaurantDetail(@PathVariable Long id, Model model) {
 
         // buscar restaurante por su id: findById
 
         Optional<Restaurante> restauranteOptional = restauranteRepository.findById(id);
-        if (restauranteOptional.isPresent()){
+        if (restauranteOptional.isPresent()) {
             //El restaurante si existe
             Restaurante restaurante = restauranteOptional.get();
             model.addAttribute("restaurante", restaurante);
+
+            // opcional:
+            // cargar los platos Dish
+            List<Dish> platos = dishRepository.findByRestaurantIdOrderByPrice(restaurante.getId());
+            model.addAttribute("dishes", platos);
+
+
             return "restaurants/restaurant-detail";
-        } else{
-            // El restaurante NO existe
-            return "redirect:/restaurants"; //redirect: lenguaje especial de controladores
-        }
+        }  //redirect: lenguaje especial de controladores
+
 
         // cargar ese restaurante en el model
 
-
-
-
+        // El restaurante NO existe
+        // CUIDADO no apunta a HTML
+        // APUNTA al Controller
+        return "redirect:/restaurants";
     }
 }

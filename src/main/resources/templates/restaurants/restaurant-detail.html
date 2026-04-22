@@ -15,5 +15,45 @@
 
 <p th:if="${restaurante.active}" style="color:green;">Abierto</p>
 <p th:unless="${restaurante.active}" style="color:red;">Cerrado</p>
+
+<!-- resto de atributos del restaurante-->
+
+<!-- listado de platos -->
+     <h2>Carta de platos</h2>
+<p th:text="${dishes.size()} + ' platos disponibles'"></p>
+     <table>
+<tbody>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Descrption</th>
+        <th>Price</th>
+        <th>Type</th>
+        <th>Acciones</th>
+
+    </tr>
+    </thead>
+<tbody>
+     <tr th:each="dish : ${dishes}">
+        <td th:text="${dish.id}"></td>
+        <td th:text="${dish.name}"></td>
+        <td th:text="${dish.description}"></td>
+        <td th:text="${dish.price}"></td>
+        <td th:text="${dish.dishType}"></td>
+     <td>
+         <a th:href="@{/dishes/{id}(id=${dish.id})}">Ver plato</a>
+         <!-- Botones con acciones: Ver, Agregar a pedido, Editar, Desactivar, Borrar -->
+         <!--Ver plato <a th:href="@{}"></a>-->
+     </td>
+
+     </tr>
+     </tbody>
+
+     </table>
 </body>
 </html>
+
+<!-- para el admin -->
+<!-- listado de empleados -->
+<!-- listado de pedidos -->
