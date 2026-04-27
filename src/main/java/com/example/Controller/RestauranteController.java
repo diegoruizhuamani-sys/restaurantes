@@ -2,8 +2,11 @@ package com.example.Controller;
 
 import com.example.model.Dish;
 import com.example.model.Restaurante;
+import com.example.model.Review;
 import com.example.repository.DishRepository;
 import com.example.repository.RestauranteRepository;
+import com.example.repository.ReviewRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
-
+@AllArgsConstructor
 @Controller
 public class RestauranteController {
     // inyectar el restaurant repository
     private final RestauranteRepository restauranteRepository;
     private final DishRepository dishRepository;
+    private final ReviewRepository reviewRepository;
 
-    public RestauranteController(RestauranteRepository restaurantRepository, DishRepository dishRepository) {
-        this.restauranteRepository = restaurantRepository;
-        this.dishRepository = dishRepository;
-
-    }
+//    public RestauranteController(RestauranteRepository restaurantRepository, DishRepository dishRepository, ReviewRepository reviewRepository) {
+//        this.restauranteRepository = restaurantRepository;
+//        this.dishRepository = dishRepository;
+//        this.reviewRepository = reviewRepository;
+//
+//    }
 
     /*
     Resumen de métodos típicos en una clase controller:
@@ -68,13 +73,14 @@ public class RestauranteController {
             List<Dish> platos = dishRepository.findByRestaurantIdOrderByPrice(restaurante.getId());
             model.addAttribute("dishes", platos);
 
+//Añadir reviews
+            List<Review> reviews = reviewRepository.findByRestaurante_IdOrderByCreationDateDesc(restaurante.getId());
+            model.addAttribute("reviews", reviews);//accesibles desde HTML
 
             return "restaurants/restaurant-detail";
-        }  //redirect: lenguaje especial de controladores
-
-
+        }
+        //redirect: lenguaje especial de controladores
         // cargar ese restaurante en el model
-
         // El restaurante NO existe
         // CUIDADO no apunta a HTML
         // APUNTA al Controller

@@ -28,6 +28,7 @@ public class RestaurantApplication {
         DishRepository dishRepository = context.getBean(DishRepository.class);
         OrderRepository orderRepository = context.getBean(OrderRepository.class);
         OrderLineRepository orderLineRepository = context.getBean(OrderLineRepository.class);
+        ReviewRepository reviewRepository = context.getBean(ReviewRepository.class);
 //Nombre de interfaz en MAY.//Nombre de clase Minus.
 
 
@@ -310,6 +311,29 @@ public class RestaurantApplication {
         System.out.println("Precio totalPrice:" + totalPrice);
         System.out.println("Precio totalPrice2:" + totalPrice2);
 
+      //Patron de diseño que permite crear crear objetos
+      //Crear cuatro reviews de una restauante usando Builder de lombok
+
+        Review review1 = Review.builder()
+                .title("Restaurante espectacular")
+                .description("Te atienden bien")
+                .restaurante(restaurantSpain)
+                .rating(5)
+                .build();
+        Review review2 = Review.builder()
+                .title("Nefasto")
+                .description("Me sirvieron la sopa sin mosca")
+                .restaurante(restaurantSpain)
+                .rating(2)
+                .build();
+        Review review3 = Review.builder()
+                .title("Bullshit")
+                .description("All employees were niggers")
+                .restaurante(restaurantSpain)
+                .rating(0)
+                .build();
+
+        reviewRepository.saveAll(List.of(review1,review2,review3));
 
 
 
