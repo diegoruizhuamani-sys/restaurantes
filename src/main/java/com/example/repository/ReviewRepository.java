@@ -11,8 +11,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     //Filtro para ver restarantes en orden de creación descendente
     List<Review> findByRestaurante_IdOrderByCreationDateDesc(Long id);
+    List<Review> findByDish_IdOrderByCreationDateDesc(Long id);
 
     List<Review> findByRatingAndRestaurante_IdOrderByCreationDateDesc(Integer rating, Long id);
+
 
 
 

@@ -1,21 +1,24 @@
 package com.example.Controller;
 
 import com.example.repository.ReviewRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@AllArgsConstructor
 @Controller
 public class ReviewController {
-    private ReviewRepository reviewRepository;
+    private final ReviewRepository reviewRepository;
 
-    public ReviewController(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
-    @GetMapping("reviews/{id}")
+    @GetMapping("reviews")
 
-    public String reviewsDetail(@PathVariable Long id){
-        return "reviews/review-detail";
+    public String reviews (Model model) {
+
+        model.addAttribute("reviews", reviewRepository.findAll());
+
+        return "reviews/review-list";
     }
 
 }

@@ -25,11 +25,16 @@ public class Review {
 
     private Integer rating;
 
-    @Builder.Default
+    @Builder.Default // para que builder no ponga este campo null
     private LocalDateTime creationDate = LocalDateTime.now();
 
+    @ToString.Exclude// To String para excluir asociaciones
     @ManyToOne
     private Restaurante restaurante;
+
+    @ToString.Exclude
+    @ManyToOne
+    private Dish dish;
 
     //private User user; // Si quieres asociar la reseña a un usuario específico
 

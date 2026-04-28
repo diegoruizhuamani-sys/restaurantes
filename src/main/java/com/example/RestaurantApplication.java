@@ -311,7 +311,7 @@ public class RestaurantApplication {
         System.out.println("Precio totalPrice:" + totalPrice);
         System.out.println("Precio totalPrice2:" + totalPrice2);
 
-      //Patron de diseño que permite crear crear objetos
+      //Patron de diseño que permite  crear objetos
       //Crear cuatro reviews de una restauante usando Builder de lombok
 
         Review review1 = Review.builder()
@@ -333,7 +333,20 @@ public class RestaurantApplication {
                 .rating(0)
                 .build();
 
-        reviewRepository.saveAll(List.of(review1,review2,review3));
+        Review review4 = Review.builder()
+                .title("Shit")
+                .description("no me gustó quien lo tocó")
+                .dish(plato1)
+                .rating(0)
+                .build();
+        Review review5 = Review.builder()
+                .title("Amazing")
+                .description("I liked who touched that")
+                .dish(plato2)
+                .rating(5)
+                .build();
+
+        reviewRepository.saveAll(List.of(review1,review2,review3, review4,review5));
 
 
 
