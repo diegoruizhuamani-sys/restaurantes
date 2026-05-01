@@ -2,20 +2,25 @@ package com.example.model;
 
 import com.example.model.Enum.FoodType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-
+@Setter
+@Getter
 @Entity
 @Table(name = "Restaurantes")
 public class Restaurante {
 
 
+    //El this sirve para poner valores y se guarden.
+    //Estos métodos sirven para  acceder y poder cambiar valores de un objeto(Getter(permite obtener un atributo) y Setter(permite cambiar un valor))
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(unique = true)
+    //@Column(unique = true)
     private String name;
 
     private Double averagePrice;
@@ -32,14 +37,6 @@ public class Restaurante {
     @Enumerated(EnumType.STRING)
     private FoodType foodType= FoodType.SPANISH; // valor por defecto a SPANISH
 
-    public FoodType getFoodType() {
-        return foodType;
-    }
-
-    public void setFoodType(FoodType foodType) {
-        this.foodType = foodType;
-    }
-
 
 //Metodo constructor para crear Restaurantes con valores
 
@@ -49,14 +46,6 @@ public class Restaurante {
     @JoinColumn
     private Employee employee;
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public Restaurante(String name, Double averagePrice, Integer numberEmployees) {
         this.name = name;
         this.averagePrice = averagePrice;        //
@@ -64,58 +53,6 @@ public class Restaurante {
     }
 
     public Restaurante() {
-
-    }
-
-    //Estos métodos sirven para  acceder y poder cambiar valores de un objeto(Getter(permite obtener un atributo) y Setter(permite cambiar un valor))
-    public Long getId() {
-
-        return id;
-    }
-
-    public void setId(Long id) {
-
-        this.id = id;//El this sirve para poner valores y se guarden.
-    }
-
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
-    }
-
-    public Double getAveragePrice() {
-
-        return averagePrice;
-    }
-
-    public void setAveragePrice(Double averagePrice) {
-
-        this.averagePrice = averagePrice;
-    }
-
-    public Boolean getActive() {
-
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-
-        this.active = active;
-    }
-
-    public Integer getNumberEmployees() {
-
-        return numberEmployees;
-    }
-
-    public void setNumberEmployees(Integer numberEmployees) {
-        this.numberEmployees = numberEmployees;
-
 
     }
 
@@ -132,14 +69,5 @@ public class Restaurante {
                 '}';
     }
 
-    public LocalDate getStartDate() {
-
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-
-        this.startDate = startDate;
-    }
 }
 

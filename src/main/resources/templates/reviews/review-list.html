@@ -2,23 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Listado Restaurantes</title>
+    <title>Reviews Listado</title>
+
+
 </head>
 <body>
 
-
 <h1>Opiniones de clientes</h1>
+
 <ul>
     <li th:each="review : ${reviews}">
         <p th:text="${review.title}"></p>
         <p th:text="${review.description}"></p>
-        <p th:text="${'Valoracion: ' + review.rating + '/5 estrellas'}"></p>
+        <p th:text="${'Valoración: ' + review.rating + ' /5 estrellas'}"></p>
         <p th:text="${'Fecha: ' + review.creationDate}"></p>
 
-        <p th:if="${review.restaurante.name}"></p>
-        <a th:href="@{/restaurantes/{id}(id=${review.restaurante.id})}">Ver restaurante</a>
+        <p th:if="${review.restaurante != null}"
+           th:text="${review.restaurante.name}"></p>
+
+        <p th:if="${review.dish != null}"
+           th:text="${review.dish.name}"></p>
+
+        <p th:if="${review.dish != null && review.dish.restaurante != null}"
+           th:text="${review.dish.restaurante.name}"></p>
+
+
+        <a th:if="${review.restaurante != null}"
+           th:href="@{/restaurantes/{id}(id=${review.restaurante.id})}">Ver restaurante</a>
     </li>
 </ul>
+
+</body>
+</html>
 
 
 

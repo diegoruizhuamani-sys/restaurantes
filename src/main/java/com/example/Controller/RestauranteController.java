@@ -47,7 +47,6 @@ public class RestauranteController {
     @GetMapping("/restaurants")
     public String restauranteList(Model model) {
         // cargar datos en el modelo
-        List<Restaurante> restaurants = restauranteRepository.findAll();
         model.addAttribute("restaurants", restauranteRepository.findAll());
         model.addAttribute("title","Lista de restaurantes");
         model.addAttribute("numRestaurants","Lista de restaurantes");

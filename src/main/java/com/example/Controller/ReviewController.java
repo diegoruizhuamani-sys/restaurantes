@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ReviewController {
     private final ReviewRepository reviewRepository;
 
+    // getmapping reviews
     @GetMapping("reviews")
-
-    public String reviews (Model model) {
-
+    public String reviews(Model model) {
         model.addAttribute("reviews", reviewRepository.findAll());
-
         return "reviews/review-list";
     }
 

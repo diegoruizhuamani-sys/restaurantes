@@ -6,16 +6,19 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 
-@Builder
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Builder
 @Entity
 @Table(name = "reviews")
 public class Review {
+
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -25,10 +28,10 @@ public class Review {
 
     private Integer rating;
 
-    @Builder.Default // para que builder no ponga este campo null
+    @Builder.Default // para que el builder no ponga este campo a null
     private LocalDateTime creationDate = LocalDateTime.now();
 
-    @ToString.Exclude// To String para excluir asociaciones
+    @ToString.Exclude
     @ManyToOne
     private Restaurante restaurante;
 
@@ -36,8 +39,15 @@ public class Review {
     @ManyToOne
     private Dish dish;
 
+    // @ToString.Exclude
+//    @ManyToOne
+//    private User user;
+
+
+}
+
     //private User user; // Si quieres asociar la reseña a un usuario específico
 
 
 
-}
+
