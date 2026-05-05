@@ -14,51 +14,60 @@ import java.time.LocalDate;
 public class Restaurante {
 
 
+    // Métodos Getter y Setter
+    // Get obtener, permite obtener un atributo
+    // Set cambiar, permite cambiar un valor
     //El this sirve para poner valores y se guarden.
     //Estos métodos sirven para  acceder y poder cambiar valores de un objeto(Getter(permite obtener un atributo) y Setter(permite cambiar un valor))
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
-    //@Column(unique = true)
+
+
     private String name;
 
     private Double averagePrice;
+
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean active = true;
 
     private Integer numberEmployees;
 
-    //Fecha de fundación
-    @CreationTimestamp    //    para crear fechas por defecto
-    private LocalDate startDate = LocalDate.now(); // =LocalDate.now(); // valor por defecto a la fecha actual
+    // fecha de fundación
 
-    //tipo de comida
+    //@CreationTimestamp // esta anotación es para que la base de datos genere la fecha, util para registrar fecha
+    // automaticamente sin preocuparse de tener que cambiarla
+    private LocalDate startDate = LocalDate.now(); //  // valor por defecto a la fecha actual
+
+    // private LocalDateTime ultimaReservan = LocalDateTime.now();
+
+    // tipo de comida
     @Enumerated(EnumType.STRING)
-    private FoodType foodType= FoodType.SPANISH; // valor por defecto a SPANISH
+    private FoodType foodType;
 
 
-//Metodo constructor para crear Restaurantes con valores
+    // bidireccional
+//    @OneToMany
+//    List<Employee> employees = new ArrayList<Employee>();
 
-    //Parametros o Atributos
-
-    @ManyToOne
-    @JoinColumn
-    private Employee employee;
+    // metodo constructor para crear Restaurantes con valores
 
     public Restaurante(String name, Double averagePrice, Integer numberEmployees) {
         this.name = name;
-        this.averagePrice = averagePrice;        //
+        this.averagePrice = averagePrice;
         this.numberEmployees = numberEmployees;
     }
 
+    // metodo constructor vacío
     public Restaurante() {
-
     }
+
+    // Metodo toString para ver los datos de un restaurante al imprimirlo
+
 
     @Override
     public String toString() {
-        return "Restaurante{" +
+        return "Restaurant{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", averagePrice=" + averagePrice +
@@ -69,5 +78,9 @@ public class Restaurante {
                 '}';
     }
 
-}
+    // Próximas tareas:
+    // Enum
+    // Fecha
+    // Asociación con otra entidad/tabla
 
+}

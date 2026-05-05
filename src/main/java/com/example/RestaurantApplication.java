@@ -39,6 +39,7 @@ public class RestaurantApplication {
         BarDiego.setName("DiegoBar");//Cambiar de nombre o valor que le des a objeto con Getter y Setter
         BarDiego.setAveragePrice(20.5);
         BarDiego.setNumberEmployees(5);
+        BarDiego.setFoodType(FoodType.SPANISH);
 
 
         //Guardar el restaurante en base de datos usando el repositorio : .save()

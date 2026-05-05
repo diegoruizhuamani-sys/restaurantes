@@ -17,24 +17,30 @@ import java.util.Optional;
 public class DishController {
     //Agregamos el repositorio que queramos
 
-    private DishRepository dishRepository;
-    private ReviewRepository reviewRepository;
+    private final DishRepository dishRepository;
+    private final ReviewRepository reviewRepository;
 
-    //Agregamos el constructor
+    @GetMapping("dishes")
+    public String listDishes(Model model) {
+        List<Dish> dishes = dishRepository.findAll();
+        model.addAttribute("dishes", dishes);
+        return "dishes/dish-list";
+    }
 
     @GetMapping("dishes/{id}")
-    //Creamos metodo
-    public String dishDetail(@PathVariable Long id, Model model){
+    public String dishDetail(@PathVariable Long id, Model model) {
+
         Optional<Dish> dishOptional = dishRepository.findById(id);
-        if(dishOptional.isPresent()){
+
+        if (dishOptional.isPresent()) {
             Dish dish = dishOptional.get();
             model.addAttribute("dish", dish);
-            //Traer reviews de este plato y cargar en model
+            // traer reviews de este plato y cargar en model
             List<Review> reviews = reviewRepository.findByDish_IdOrderByCreationDateDesc(id);
-            model.addAttribute("reviews", reviews);//Poder traer reviews de un plato
-
+            model.addAttribute("reviews", reviews);
             return "dishes/dish-detail";
         }
+
         return "redirect:/restaurants";
     }
 }
