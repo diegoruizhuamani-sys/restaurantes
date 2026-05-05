@@ -24,9 +24,14 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long> 
         SELECT r from Restaurante r
         WHERE r.active = true
         AND (:foodType IS NULL OR r.foodType = :foodType)
-                AND (:price IS NULL OR r.averagePrice <= :price)
+        AND (:price IS NULL OR r.averagePrice <= :price)
+        AND (:title IS NULL OR LOWER(r.name) LIKE LOWER(CONCAT('%', :title, '%')))
         """)
-    List<Restaurante> findActiveFiltering(@Param("foodType") FoodType foodType, @Param("price") Double price);
+    List<Restaurante> findActiveFiltering(
+            @Param("foodType") FoodType foodType,
+            @Param("price") Double price,
+            @Param("title") String title
+    );
 
     // Filtro por nombre
 

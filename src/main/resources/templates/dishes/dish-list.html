@@ -30,13 +30,13 @@
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                             <span th:switch="${dish.dishType}">
-                                <span class="badge bg-success" th:case="${T(com.restaurantes.model.enums.DishType).STARTER}">
+                                <span class="badge bg-success" th:case="${T(com.example.model.Enum.DishType).STARTER}">
                                     <i class="fa-solid fa-leaf me-1"></i>Entrantes
                                 </span>
-                                <span class="badge bg-primary" th:case="${T(com.restaurantes.model.enums.DishType).MAIN}">
+                                <span class="badge bg-primary" th:case="${T(com.example.model.Enum.DishType).MAIN}">
                                     <i class="fa-solid fa-drumstick-bite me-1"></i>Principales
                                 </span>
-                                <span class="badge bg-warning text-dark" th:case="${T(com.restaurantes.model.enums.DishType).DESSERT}">
+                                <span class="badge bg-warning text-dark" th:case="${T(com.example.model.Enum.DishType).DESSERT}">
                                     <i class="fa-solid fa-ice-cream me-1"></i>Postres
                                 </span>
                                 <span class="badge bg-secondary" th:case="*">Sin tipo</span>

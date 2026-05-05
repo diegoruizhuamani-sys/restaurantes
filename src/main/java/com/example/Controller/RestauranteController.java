@@ -42,9 +42,10 @@ public class RestauranteController {
     public String restaurantList(
             Model model,
             @RequestParam(required = false) FoodType foodType,
-            @RequestParam(required = false) Double price
+            @RequestParam(required = false) Double price,
+            @RequestParam(required = false) String title
     ) {
-        List<Restaurante> restaurants = restauranteRepository.findActiveFiltering(foodType, price);
+        List<Restaurante> restaurants = restauranteRepository.findActiveFiltering(foodType, price, title);
         model.addAttribute("restaurants", restaurants);
         model.addAttribute("numRestaurants", restaurants.size());
         model.addAttribute("title", "Lista de restaurantes");
@@ -72,7 +73,7 @@ public class RestauranteController {
 
             // reviews
             //List<Review> reviews = reviewRepository.findAll();
-            List<Review> reviews = reviewRepository.findByRestaurante_IdOrderByCreationDateDesc(restaurant.getId());
+            List<Review> reviews = reviewRepository.findByRestaurant_IdOrderByCreationDateDesc(restaurant.getId());
             model.addAttribute("reviews", reviews); // accesibles desde HTML
 
             return "restaurants/restaurant-detail";

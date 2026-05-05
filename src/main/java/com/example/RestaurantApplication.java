@@ -296,21 +296,21 @@ public class RestaurantApplication {
         // crear cuatro reviews de un restaurante usando Builder de lombok
         Review review1 = Review.builder()
                 .description("Te atienden bien")
-                .restaurante(BarDiego)
+                .restaurant(BarDiego)
                 .title("Restaurante espectacular")
                 .rating(5)
                 .build();
 
         Review review2 = Review.builder()
                 .description("Nefasto")
-                .restaurante(BarDiego)
+                .restaurant(BarDiego)
                 .title("Me sirvieron la sopa sin mosca")
                 .rating(1)
                 .build();
 
         Review review3 = Review.builder()
                 .description("Ni fu ni fa")
-                .restaurante(BarDiego)
+                .restaurant(BarDiego)
                 .title("Comí y no me morí")
                 .rating(3)
                 .build();

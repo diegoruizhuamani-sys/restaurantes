@@ -10,11 +10,11 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     //Circulito Rojo/Find collection/Query condition para           . Order Atributte para ordenar.
 
     //Filtro para ver restarantes en orden de creación descendente
-    List<Review> findByRestaurante_IdOrderByCreationDateDesc(Long id);
+    List<Review> findByRestaurant_IdOrderByCreationDateDesc(Long id);
     List<Review> findByDish_IdOrderByCreationDateDesc(Long id);
 
 
-    List<Review> findByRestaurante_IdAndRatingGreaterThanEqualOrderByCreationDateDesc(Long id, Integer rating);
+    List<Review> findByRestaurant_IdAndRatingGreaterThanEqualOrderByCreationDateDesc(Long id, Integer rating);
 
 
 

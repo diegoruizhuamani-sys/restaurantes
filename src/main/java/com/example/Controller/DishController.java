@@ -5,6 +5,7 @@ import com.example.model.Review;
 import com.example.repository.DishRepository;
 import com.example.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+
 @AllArgsConstructor
 @Controller
 public class DishController {
-    //Agregamos el repositorio que queramos
-
     private final DishRepository dishRepository;
     private final ReviewRepository reviewRepository;
 

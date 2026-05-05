@@ -33,7 +33,7 @@ public class Review {
 
     @ToString.Exclude
     @ManyToOne
-    private Restaurante restaurante;
+    private Restaurante restaurant;
 
     @ToString.Exclude
     @ManyToOne
@@ -45,9 +45,3 @@ public class Review {
 
 
 }
-
-    //private User user; // Si quieres asociar la reseña a un usuario específico
-
-
-
-

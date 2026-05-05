@@ -1,6 +1,8 @@
 package com.example.model;
 import com.example.model.Enum.DishType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /*
 Platos por restaurante:
@@ -17,6 +19,8 @@ from dish d
 inner join restaurantes r on d.restaurant_id = r.id
 where r.name = 'La Taberna';
  */
+@Setter
+@Getter
 @Entity
 public class Dish {
 
@@ -50,57 +54,6 @@ public class Dish {
     }
 
     // getter setter
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public DishType getDishType() {
-        return dishType;
-    }
-
-    public void setDishType(DishType dishType) {
-        this.dishType = dishType;
-    }
-
-    public Restaurante getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurante restaurante) {
-        this.restaurant = restaurante;
-    }
-
-    private void restaurante() {
-    }
 
     // tostring
     @Override
