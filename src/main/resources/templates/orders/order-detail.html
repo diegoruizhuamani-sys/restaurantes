@@ -13,7 +13,7 @@
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/templates/orders}" class="text-decoration-none">
+                <a th:href="@{/orders}" class="text-decoration-none">
                     <i class="fa-solid fa-list me-1"></i>Pedidos
                 </a>
             </li>
@@ -41,7 +41,14 @@
                             <span class="badge fs-6 px-3 py-2"
                                   th:classappend="${order.status.name() == 'PENDING' ? 'bg-warning text-dark' : (order.status.name() == 'IN_PROGRESS' ? 'bg-info text-dark' : 'bg-success')}"
                                   th:text="${order.status.name() == 'PENDING' ? 'Pendiente' : (order.status.name() == 'IN_PROGRESS' ? 'En curso' : 'Finalizado')}"></span>
-                    <a th:href="@{/templates/orders}" class="btn btn-outline-secondary btn-sm">
+
+                    <a th:if="${order.status.name() != 'FINISHED'}"
+                       th:href="@{/orders/{id}/finish(id=${order.id})}"
+                       class="btn btn-success btn-sm">
+                        <i class="fa-solid fa-coins me-1"></i> Finalizar pedido
+                    </a>
+
+                    <a th:href="@{/orders}" class="btn btn-outline-secondary btn-sm">
                         <i class="fa-solid fa-arrow-left me-1"></i> Volver
                     </a>
                 </div>
@@ -193,7 +200,9 @@
                     <th class="text-center">Cantidad</th>
                     <th class="text-end">Precio</th>
                     <th class="text-end">Subtotal</th>
-                    <th class="text-end pe-3"></th>
+                    <th class="text-center pe-3">Ver</th> <!-- Ver -->
+                    <th class="text-center pe-3" th:if="${order.status.name() != 'FINISHED'}">Modificar</th> <!-- modificar cantidad -->
+                    <th class="text-center pe-3" th:if="${order.status.name() != 'FINISHED'}">Eliminar</th> <!-- eliminar linea pedido -->
                 </tr>
                 </thead>
                 <tbody>
@@ -221,11 +230,29 @@
                     </td>
                     <td class="text-end fw-semibold"
                         th:text="|${#numbers.formatDecimal(line.quantity * line.dish.price, 1, 2)} €|"></td>
-                    <td class="text-end pe-3">
+                    <td class="text-center">
                         <a th:href="@{/dishes/{id}(id=${line.dish.id})}"
                            class="btn btn-sm btn-outline-primary"
                            title="Ver plato">
                             <i class="fa-regular fa-eye"></i>
+                        </a>
+                    </td>
+                    <td th:if="${order.status.name() != 'FINISHED'}" class="text-center">
+
+                        <form th:action="@{/orders/{orderId}/lines/{lineId}(orderId=${order.id},lineId=${line.id})}"
+                              method="post" class="d-flex align-items-center justify-content-center gap-1">
+                            <input name="quantity" type="number" min="1" style="max-width: 90px;"
+                                   th:value="${line.quantity}" class="form-control form-control-sm">
+                            <button class="btn btn-sm btn-success">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </button>
+                        </form>
+
+                    </td>
+                    <td th:if="${order.status.name() != 'FINISHED'}" class="text-center">
+                        <a class="btn btn-sm btn-danger"
+                           th:href="@{/orders/{orderId}/lines/{lineId}/delete(orderId=${order.id},lineId=${line.id})}">
+                            <i class="fa-solid fa-trash"></i>
                         </a>
                     </td>
                 </tr>
@@ -238,15 +265,70 @@
             <div class="row justify-content-end">
                 <div class="col-md-5 col-lg-4">
                     <dl class="row mb-0">
-                        <dt class="col-7 text-muted fw-normal">Propina</dt>
-                        <dd class="col-5 text-end mb-1">
+                        <dt class="col-7 text-muted fw-normal" th:if="${order.status.name() == 'FINISHED'}">Propina</dt>
+                        <dd class="col-5 text-end mb-1" th:if="${order.status.name() == 'FINISHED'}">
                             <span th:text="${#numbers.formatDecimal(order.tip, 1, 2)}"></span> €
                         </dd>
                         <dt class="col-7 fs-5 mb-0">Total</dt>
                         <dd class="col-5 text-end fs-5 fw-bold text-success mb-0">
                             <span th:text="${#numbers.formatDecimal(order.totalPrice, 1, 2)}"></span> €
                         </dd>
+                        <dt class="col-7 fs-5 mb-0" th:if="${order.status.name() == 'FINISHED'}">Suma total</dt>
+                        <dd class="col-5 text-end fs-5 fw-bold text-success mb-0" th:if="${order.status.name() == 'FINISHED'}">
+                            <span th:text="${#numbers.formatDecimal(order.totalPrice + order.tip, 1, 2)}"></span> €
+                        </dd>
                     </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4" th:if="${order.status.name() != 'FINISHED'}">
+        <div class="card-body">
+            <h5 class="mb-3">Sección de pago</h5>
+
+            <form th:action="@{/orders/{id}/finish(id=${order.id})}" method="get"
+                  class="row align-items-end justify-content-end gap-3">
+
+                <!-- si enviamos info sensible mejor cambiar a method post -->
+                <div class="col">
+                    <label class="form-label" for="tip">Propina (€)</label>
+                    <input type="number" id="tip" name="tip" min="0"
+                           class="form-control" value="0.00" step="0.01">
+                </div>
+
+                <div class="col">
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-credit-card"></i>
+                        Pagar y finalizar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TODO Mostrar los platos a elegir para el pedido en progreso-->
+    <div th:if="${order.status.name() != 'FINISHED'}">
+        <h2 class="mt-4">Selecciona los platos deseados</h2>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" th:each="dish : ${dishes}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${dish.name}"></h5>
+                        <p class="text-muted small" th:text="${dish.description}"></p>
+                        <strong th:text="|${#numbers.formatDecimal(dish.price, 1, 2)} €|"></strong>
+                    </div>
+                    <div class="card-footer">
+
+                        <form th:action="@{/orders/{id}/lines(id=${order.id})}" method="post">
+                            <input type="hidden" name="dishId" th:value="${dish.id}">
+                            <button class="btn btn-sm btn-success">
+                                <i class="fa-solid fa-plus"></i>
+                                Añadir
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

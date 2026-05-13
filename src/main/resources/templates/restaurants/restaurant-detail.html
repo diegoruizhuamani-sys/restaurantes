@@ -21,6 +21,15 @@
                 <i class="fa-solid fa-ban me-1"></i> Desactivar
             </a>
 
+            <a th:href="@{/restaurants/edit/{id}(id=${restaurant.id})}"
+               class="btn btn-success btn-sm mt-2">
+                <i class="fa-solid fa-pencil me-1"></i> Editar
+            </a>
+
+            <a class="btn btn-success" th:href="@{/orders/new(restaurantId=${restaurant.id})}">
+                <i class="fa-solid fa-hand-point-up"></i> Hacer pedido
+            </a>
+
             <span class="badge bg-success me-1">
                         <i class="fa-solid fa-euro-sign me-1"></i>
                         <span th:text="${restaurant.averagePrice != null ? restaurant.averagePrice + ' €' : 'Sin precio'}"></span>
@@ -86,6 +95,10 @@
     <h2 class="mt-5">
         <i class="fa-regular fa-comments text-primary me-2"></i> Opiniones de nuestros clientes
     </h2>
+
+    <a class="btn btn-success" th:href="@{/reviews/new(restaurantId=${restaurant.id})}">
+        <i class="fa-solid fa-plus"></i> Escribir reseña
+    </a>
 
     <div th:if="${reviews.isEmpty()}" class="alert alert-light border">
         <i class="fa-regular fa-face-smile me-1"></i>
